@@ -1,0 +1,1 @@
+copy /y %1 E:\NewDev\server-data\resources\vstancer

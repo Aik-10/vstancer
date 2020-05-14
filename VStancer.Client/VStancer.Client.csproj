@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <RootNamespace>VStancer.Client</RootNamespace>
+    <AssemblyName>VStancer.Client.net</AssemblyName>
+    <!-- CI handles patching -->
+    <!-- <GenerateAssemblyInfo>true</GenerateAssemblyInfo> -->
+    <Platform>x64</Platform>
+  </PropertyGroup>
+
+  <PropertyGroup>
+	  <Product>FiveM VStancer</Product>
+    <Description>A FiveM script to edit transform of vehicles' wheels bones</Description>
+    <Company>carmineos</Company>
+    <Authors>Carmine Giugliano</Authors>
+    <PackageId>VStancer.Client</PackageId>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    
+    <PackageReference Include="MenuAPI.FiveM" Version="3.1.1" />
+
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" ExcludeAssets="Compile" GeneratePathProperty="true" />
+
+    <Reference Include="CitizenFX.Core">
+      <HintPath>..\..\..\AppData\Local\FiveM\FiveM.app\citizen\clr2\lib\mono\4.5\CitizenFX.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="CitizenFX.Core.Client">
+      <HintPath>..\..\..\AppData\Local\FiveM\FiveM.app\citizen\clr2\lib\mono\4.5\CitizenFX.Core.Client.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(PkgNewtonsoft_Json)\lib\portable-net40+sl5+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if '$(CI)' == '' ( &#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(TargetPath)&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(SolutionDir)\dist\config.json&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(SolutionDir)\dist\fxmanifest.lua&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(SolutionDir)\dist\client.js&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(SolutionDir)\dist\client.lua&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(SolutionDir)\dist\server.lua&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(TargetDir)\MenuAPI.dll&quot;&#xD;&#xA;call &quot;$(SolutionDir)postbuild.bat&quot; &quot;$(TargetDir)\Newtonsoft.Json.dll&quot;)" />
+  </Target>
+
+</Project>
